@@ -22,10 +22,15 @@ class SBERTEmbeddingFunction:
     
     
 class VectorIndex():
-    def __init__(self):
-        self.PERSIST_DIRECTORY='src/database/store'
-        self.CHUNK_SIZE=200 
-        self.CHUNK_OVERLAP=50
+    def __init__(
+            self, 
+            chuk_size=200, 
+            chunk_overlap=50, 
+            persist_directory='src/database/store'
+        ):
+        self.PERSIST_DIRECTORY=persist_directory
+        self.CHUNK_SIZE=chuk_size 
+        self.CHUNK_OVERLAP=chunk_overlap
 
     def retrieval():
         pass
@@ -33,7 +38,9 @@ class VectorIndex():
     def store(self, docs):
         print('[INFO] - Iniciando storage no vector store')
 
-        embedding_function = SBERTEmbeddingFunction("sentence-transformers/all-MiniLM-L6-v2")
+        embedding_function = SBERTEmbeddingFunction(
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        )
 
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.CHUNK_SIZE, chunk_overlap=self.CHUNK_OVERLAP, add_start_index=True
