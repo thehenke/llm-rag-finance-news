@@ -1,3 +1,4 @@
+ipykernel==6.29.5
 python-dotenv==1.0.1
 requests==2.32.3
 transformers[torch]==4.48.0

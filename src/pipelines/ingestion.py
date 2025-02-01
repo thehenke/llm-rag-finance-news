@@ -57,7 +57,7 @@ class DataIngestion():
             row_text = row_text + "\n\n" + "-" * 50
             documents.append(Document(page_content=row_text))
             
-        print(len(documents))
+        print(f"[INFO] - {len(documents)} recuperados")
         vs = VectorIndex()
         vs.store(documents)
 

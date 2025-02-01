@@ -3,10 +3,6 @@ from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from sentence_transformers import SentenceTransformer
-# from langchain_community.embeddings.sentence_transformer import (
-#     SentenceTransformerEmbeddings,
-# )
-# from src.config import config
 
 load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv('HUGGINGFACE_TOKEN')
@@ -26,9 +22,10 @@ class SBERTEmbeddingFunction:
     
     
 class VectorIndex():
-    PERSIST_DIRECTORY='src/database/store'
-    CHUNK_SIZE=200 
-    CHUNK_OVERLAP=50
+    def __init__(self):
+        self.PERSIST_DIRECTORY='src/database/store'
+        self.CHUNK_SIZE=200 
+        self.CHUNK_OVERLAP=50
 
     def retrieval():
         pass
@@ -43,9 +40,8 @@ class VectorIndex():
         )
 
         all_splits = text_splitter.split_documents(docs)
-        print('[INFO] - Splits gerados')
 
-        # Crie o Chroma vectorstore usando os embeddings do SBERT
+        print('[INFO] - Splits de documento gerados')
 
         vectorstore = Chroma.from_documents(
             documents=all_splits,
@@ -54,21 +50,3 @@ class VectorIndex():
         )
 
         print(f'[INFO] - Concluído storage no vector store {vectorstore}')
-
-    @staticmethod
-    def test():
-        from sentence_transformers import SentenceTransformer
-
-        model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", token=HUGGINGFACE_TOKEN)
-
-        sentences = [
-            "That is a happy person",
-            "That is a happy dog",
-            "That is a very happy person",
-            "Today is a sunny day"
-        ]
-        embeddings = model.encode(sentences)
-
-        similarities = model.similarity(embeddings, embeddings)
-        print(similarities)
-        # [4, 4]
