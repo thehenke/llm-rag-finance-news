@@ -10,8 +10,6 @@ from sentence_transformers import SentenceTransformer
 
 load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv('HUGGINGFACE_TOKEN')
-print(HUGGINGFACE_TOKEN)
-
 
 class SBERTEmbeddingFunction:
     """Classe para adaptar o SentenceTransformer ao formato esperado pelo LangChain."""

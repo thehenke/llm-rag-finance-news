@@ -1,0 +1,6 @@
+SQLLITE_DATABASE_NAME:
+  ARTICLES: "articles"
+  LOGS: "logs"
+
+VECTORSTORE_INDEX_PATH:
+  ARTICLES: "/vectorstore/articles"

@@ -1,11 +1,7 @@
 env*
-<<<<<<< HEAD
-venv
-=======
 venv
 *.ipynb_checkpoints
 *__pycache__*
 src/database/store/*
 *env*
-env
->>>>>>> 09447ee (up)
+.env

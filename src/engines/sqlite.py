@@ -1,6 +1,6 @@
 import sqlite3
 
-class DatabaseManager:
+class SQLite:
     def __init__(self):
         self.con = sqlite3.connect("src/database/articles.db")
         self.ddl = open('src/database/create_articles.sql', 'r').read()
@@ -16,7 +16,7 @@ class DatabaseManager:
         try: 
             self.con.executemany("INSERT INTO articles(title, author, source, description, content, url, published_at, request_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", rows)
             self.con.commit()
-            print('Dados inseridos!')
+            print(f'[INFO] - {len(rows)} linhas inseridas na tabela!')
         except Exception as error:
             print(f"Erro ao tentar inserir dados {error}")
 
