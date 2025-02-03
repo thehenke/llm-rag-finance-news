@@ -28,18 +28,3 @@ class SQLite:
             print(f"Erro ao tentar executar a query: {error}")
             return None
             
-
-# db = DatabaseManager()
-# db.create_table()
-
-
-
-
-# data = [
-#     ("teste1", "teste2", "teste3", "teste4", "teste5", "teste6", "teste7", "teste8"),
-# ]
-
-# db.insert_rows(data)
-
-
-# print(db.query("SELECT * FROM articles"))

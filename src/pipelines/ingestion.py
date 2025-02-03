@@ -11,12 +11,19 @@ API_KEY = os.getenv('API_NEWS_KEY')
 
 class DataIngestion():
     def __init__(self):
-        self.keys_search = ["bitcoin"]
+        self.api_words_search = ["bitcoin"]
         self.len_data = None
         self.db = SQLite()
+    
+    def run(self, get_data_from_api=False):
+        if get_data_from_api:
+            self.__get_data_from_api()
+        
+        self.__create_vector_index()
 
-    def get_data_from_api(self):
-        self.response = requests.get(f'https://newsapi.org/v2/everything?q={",".join(self.keys_search)}&apiKey={API_KEY}')
+    def __get_data_from_api(self):
+        print(f"[INFO] - Buscando dados na API...")
+        self.response = requests.get(f'https://newsapi.org/v2/everything?q={",".join(self.api_words_search)}&apiKey={API_KEY}')
         articles = self.response.json()['articles']
 
         data = [
@@ -36,7 +43,7 @@ class DataIngestion():
             self.db.insert_rows(data)
 
     
-    def create_vector_index(self):
+    def __create_vector_index(self):
         rows = self.db.query("SELECT * FROM articles")
 
         data = [{
@@ -63,4 +70,4 @@ class DataIngestion():
 
 
 
-DataIngestion().create_vector_index()
+DataIngestion().run(get_data_from_api=True)
