@@ -5,7 +5,7 @@ class SQLite:
         self.con = sqlite3.connect("src/database/articles.db")
         self.ddl = open('src/database/create_articles.sql', 'r').read()
 
-    def create_table(self):
+    def __create_table(self):
         try: 
             if self.ddl:
                 self.con.execute(self.ddl)
@@ -13,7 +13,8 @@ class SQLite:
             print(f"Erro ao tentar criar tabela: {error}")
 
     def insert_rows(self, rows):
-        try: 
+        try:
+            self.__create_table()
             self.con.executemany("INSERT INTO articles(title, author, source, description, content, url, published_at, request_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", rows)
             self.con.commit()
             print(f'[INFO] - {len(rows)} linhas inseridas na tabela!')
@@ -27,19 +28,3 @@ class SQLite:
         except Exception as error: 
             print(f"Erro ao tentar executar a query: {error}")
             return None
-            
-
-# db = DatabaseManager()
-# db.create_table()
-
-
-
-
-# data = [
-#     ("teste1", "teste2", "teste3", "teste4", "teste5", "teste6", "teste7", "teste8"),
-# ]
-
-# db.insert_rows(data)
-
-
-# print(db.query("SELECT * FROM articles"))
