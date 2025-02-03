@@ -24,7 +24,7 @@ class SBERTEmbeddingFunction:
 class VectorIndex():
     def __init__(
             self, 
-            chuk_size=200, 
+            chuk_size=1000, 
             chunk_overlap=50, 
             persist_directory='src/database/store'
         ):
@@ -45,15 +45,15 @@ class VectorIndex():
         retriever = self.vectorstore.as_retriever(
             search_type="similarity_score_threshold",
             search_kwargs={
-                "k": 20,
-                "score_threshold": 0.4,
+                "k": 4,
+                "score_threshold": 0.5,
             }
         )
 
         return retriever
     
     def store(self, docs):
-        print(docs)
+
         print('[INFO] - Iniciando storage no vector store')
 
         text_splitter = RecursiveCharacterTextSplitter(
@@ -63,8 +63,7 @@ class VectorIndex():
         )
 
         all_splits = text_splitter.split_documents(docs)
-        print(all_splits[1])
-
+        print(all_splits)
         print('[INFO] - Splits de documento gerados')
 
         vectorstore = Chroma.from_documents(

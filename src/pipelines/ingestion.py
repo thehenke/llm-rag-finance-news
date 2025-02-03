@@ -23,7 +23,7 @@ class DataIngestion():
 
     def __get_data_from_api(self):
         print(f"[INFO] - Buscando dados na API...")
-        self.response = requests.get(f'https://newsapi.org/v2/everything?q={",".join(self.api_words_search)}&apiKey={API_KEY}')
+        self.response = requests.get(f'https://newsapi.org/v2/everything?q={",".join(self.api_words_search)}&apiKey={API_KEY}&language=pt&sortBy=popularity')
         articles = self.response.json()['articles']
 
         data = [
@@ -60,8 +60,8 @@ class DataIngestion():
         documents = []
         for row in data:
             # Criar uma string no formato "coluna: valor"
-            row_text = "\n".join([f"{key}: {value}" for key, value in row.items()])
-            row_text = row_text + "\n\n"
+            row_text = " ".join([f"{key}: {value}" for key, value in row.items()])
+            print(len(row_text))
             documents.append(Document(page_content=row_text))
             
         print(f"[INFO] - {len(documents)} recuperados")
