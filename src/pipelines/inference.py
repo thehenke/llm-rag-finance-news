@@ -31,6 +31,8 @@ class RAGInference():
         formatted_prompt = self.prompt.format(context=self.__format_docs(docs), question=query)
         print("------------------Prompt final:")
         print(formatted_prompt)
+        print("------------ DOCS ")
+        print(docs)
 
         # response = rag_chain.invoke(query)
         # print(response)
