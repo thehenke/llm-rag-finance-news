@@ -61,7 +61,7 @@ class DataIngestion():
         for row in data:
             # Criar uma string no formato "coluna: valor"
             row_text = "\n".join([f"{key}: {value}" for key, value in row.items()])
-            row_text = row_text + "\n\n" + "-" * 50
+            row_text = row_text + "\n\n"
             documents.append(Document(page_content=row_text))
             
         print(f"[INFO] - {len(documents)} recuperados")

@@ -53,6 +53,7 @@ class VectorIndex():
         return retriever
     
     def store(self, docs):
+        print(docs)
         print('[INFO] - Iniciando storage no vector store')
 
         text_splitter = RecursiveCharacterTextSplitter(
@@ -62,6 +63,7 @@ class VectorIndex():
         )
 
         all_splits = text_splitter.split_documents(docs)
+        print(all_splits[1])
 
         print('[INFO] - Splits de documento gerados')
 

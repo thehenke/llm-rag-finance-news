@@ -38,4 +38,4 @@ class RAGInference():
         # print(response)
 
 
-rag = RAGInference().run(query='O que estão falando do bitcoin nas noticias ?')
+rag = RAGInference().run(query='?')
