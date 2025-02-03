@@ -32,16 +32,17 @@ class VectorIndex():
         self.CHUNK_SIZE=chuk_size 
         self.CHUNK_OVERLAP=chunk_overlap
         self.embedding_function = SBERTEmbeddingFunction(model_name="sentence-transformers/all-MiniLM-L6-v2")
-        self.retriever = self.__retrieval_augmented()
-
-    def __retrieval_augmented(self):
-
-        vectorstore = Chroma(
+        self.vectorstore = Chroma(
             embedding_function=self.embedding_function,
             persist_directory=self.PERSIST_DIRECTORY
         )
+        self.retriever = self.__retrieval_augmented()
 
-        retriever = vectorstore.as_retriever(
+    def get_vectorstore(self):
+        return self.vectorstore
+    
+    def __retrieval_augmented(self):
+        retriever = self.vectorstore.as_retriever(
             search_type="similarity_score_threshold",
             search_kwargs={
                 "k": 20,

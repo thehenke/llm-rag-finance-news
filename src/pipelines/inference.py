@@ -1,5 +1,5 @@
 from langchain_core.prompts import PromptTemplate
-from langchain_community.llms import Ollama
+from langchain_ollama.llms import OllamaLLM
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
@@ -7,10 +7,10 @@ from src.engines.embeddings import VectorIndex
 
 class RAGInference():
     def __init__(self):
-        template = "Context:\n{context}\n\nQuestion: {question}\n\nAnswer:"
+        template = "Contexto:\n{context}\n\n Pergunta: {question}"
         self.prompt = PromptTemplate(template=template, input_variables=["context", "question"])
         self.retriever = VectorIndex().retriever
-        self.llm = Ollama(model="llama3.2:latest")
+        self.llm = OllamaLLM(model="dk:latest")
 
     def __format_docs(self, docs):
         return "\n\n".join(doc.page_content for doc in docs)
@@ -26,4 +26,14 @@ class RAGInference():
         response = rag_chain.invoke(query)
         print(response)
 
-rag = RAGInference().run(query='O que você sabe sobre bitcoin ?')
+
+        docs = self.retriever.get_relevant_documents(query)
+        formatted_prompt = self.prompt.format(context=self.__format_docs(docs), question=query)
+        print("------------------Prompt final:")
+        print(formatted_prompt)
+
+        # response = rag_chain.invoke(query)
+        # print(response)
+
+
+rag = RAGInference().run(query='O que estão falando do bitcoin nas noticias ?')
