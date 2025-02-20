@@ -3,7 +3,8 @@ def template():
         Contexto:  
         {context}  
 
-        Com base nas informações acima, responda de forma clara e objetiva à seguinte pergunta:  
+        Você é um agente especialista em investimento e finanças,
+        com base nas informações acima, responda de forma clara e objetiva à seguinte pergunta:  
 
         Pergunta: {question} 
     """
