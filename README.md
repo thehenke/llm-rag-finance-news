@@ -30,7 +30,11 @@ LLM-RAG-FINANCE-NEWS/
 Ao trabalhar em projetos Python, é recomendável utilizar um ambiente virtual para isolar as dependências do projeto e evitar conflitos entre diferentes pacotes.  
 
 ## Criando o Ambiente Virtual  
-Para criar um ambiente virtual chamado `env`, utilize o seguinte comando:  
+Para criar um ambiente virtual chamado `env`, utilize o seguinte comando: 
+
+```sh
+pip install virtualenv
+```
 
 ```sh
 python -m venv env
@@ -100,6 +104,20 @@ data = response.json()
 print(data)
 ```
 
+## Como Executar o Servidor Uvicorn
+
+Para iniciar o servidor Uvicorn, você precisa rodar o seguinte comando no terminal:
+
+```sh
+uvicorn src.main:app --reload
+```
+
+## Executando o Servidor no Python Shell
+
+Rode na raiz do projeto: 
+```
+python -m src.main
+```
 
 ## Mindmap
 
