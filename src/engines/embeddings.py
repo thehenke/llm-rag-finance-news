@@ -41,7 +41,7 @@ class VectorIndex():
             self, 
             chuk_size=1000, 
             chunk_overlap=50, 
-            persist_directory='src/database/store'
+            persist_directory='database/store'
         ):
         self.PERSIST_DIRECTORY=persist_directory
         self.CHUNK_SIZE=chuk_size 
@@ -51,16 +51,29 @@ class VectorIndex():
             embedding_function=self.embedding_function,
             persist_directory=self.PERSIST_DIRECTORY
         )
-        self.retriever = self.__retrieval_augmented()
+        self.__retriever = self.__set_retriever()
+
+    def retrieve_documents(self, query, k=6, score_threshold=0.5):
+        print(f'[INFO] - Buscando documentos para a query: "{query}"')
+        results = self.__retriever.invoke(query)
+        
+        relevant_docs = []
+        for doc in results:
+            relevant_docs.append({
+                "page_content": doc.page_content,
+                "metadata": doc.metadata
+            })
+        
+        return relevant_docs
 
     def get_vectorstore(self):
         return self.vectorstore
     
-    def __retrieval_augmented(self):
+    def __set_retriever(self):
         retriever = self.vectorstore.as_retriever(
             search_type="similarity_score_threshold",
             search_kwargs={
-                "k": 4,
+                "k": 6,
                 "score_threshold": 0.5,
             }
         )
@@ -91,4 +104,5 @@ class VectorIndex():
     def __multiquery_retrieval_augmented(self):
         pass
 
-# teste = VectorIndex().retrieval_augmented()
+# teste = VectorIndex().retrieve_documents(query="o que fazer com as noticias de bitcoin")
+# print(teste)
