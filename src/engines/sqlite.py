@@ -2,8 +2,8 @@ import sqlite3
 
 class SQLite:
     def __init__(self):
-        self.con = sqlite3.connect("src/database/articles.db")
-        self.ddl = open('src/database/create_articles.sql', 'r').read()
+        self.con = sqlite3.connect("database/articles.db")
+        self.ddl = open('database/create_articles.sql', 'r').read()
 
     def __create_table(self):
         try: 

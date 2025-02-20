@@ -3,8 +3,8 @@ import requests
 from datetime import datetime
 from dotenv import load_dotenv
 from langchain.docstore.document import Document
-from src.engines.sqlite import SQLite
-from src.engines.embeddings import VectorIndex
+from engines.sqlite import SQLite
+from engines.embeddings import VectorIndex
 
 load_dotenv()
 API_KEY = os.getenv('API_NEWS_KEY')
@@ -61,7 +61,7 @@ class DataIngestion():
         for row in data:
             # Criar uma string no formato "coluna: valor"
             row_text = " ".join([f"{key}: {value}" for key, value in row.items()])
-            print(len(row_text))
+            # print(len(row_text))
             documents.append(Document(page_content=row_text))
             
         print(f"[INFO] - {len(documents)} recuperados")
@@ -69,5 +69,4 @@ class DataIngestion():
         vs.store(documents)
 
 
-
-DataIngestion().run(get_data_from_api=True)
+# DataIngestion().run(get_data_from_api=True)

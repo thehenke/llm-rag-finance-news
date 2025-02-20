@@ -5,3 +5,4 @@ venv
 src/database/store/*
 *env*
 .env
+database/*
