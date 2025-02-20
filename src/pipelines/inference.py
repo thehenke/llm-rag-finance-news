@@ -3,8 +3,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableParallel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
-from src.engines.embeddings import VectorIndex
-from src.prompt.rag import template
+from engines.embeddings import VectorIndex
+from prompt.rag import template
 
 
 load_dotenv()
@@ -34,6 +34,6 @@ class RAGInference():
         )
 
         response = rag_chain.invoke(query)
-        print(response)
+        yield response
 
-rag = RAGInference().run(query='Faça um resumo em topicos sobre o bitcoin e também outras criptomoedas relacionadas, e qual a relação delas com o Trump.')
+# rag = RAGInference().run(query='Faça um resumo em topicos sobre o bitcoin e também outras criptomoedas relacionadas.')

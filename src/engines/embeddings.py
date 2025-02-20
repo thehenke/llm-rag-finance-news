@@ -88,4 +88,7 @@ class VectorIndex():
 
         print(f'[INFO] - Concluído storage no vector store {vectorstore}')
 
+    def __multiquery_retrieval_augmented(self):
+        pass
+
 # teste = VectorIndex().retrieval_augmented()
