@@ -8,3 +8,4 @@ langchain-community==0.3.16
 sentence-transformers==3.4.1
 langchain-ollama==0.2.3
 langchain-google-genai==2.0.9
+fastapi==0.115.8
