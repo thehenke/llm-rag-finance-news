@@ -17,7 +17,7 @@ LLM-RAG-FINANCE-NEWS/
 │   │   │── ingestion_router.py  # Rota para ingestão de dados no sistema
 │   │   │── retrieval_router.py  # Rota para recuperação de informações
 │   │── utils/          # Funções utilitárias e auxiliares
-│   │   │── main.py       # Ponto de entrada principal da aplicação
+│   │── main.py       # Ponto de entrada principal da aplicação
 │── .env                  # Variáveis de ambiente
 │── .gitignore            # Arquivo para ignorar arquivos no Git
 │── mindmap.excalidraw    # Mapa mental do projeto
