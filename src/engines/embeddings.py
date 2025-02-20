@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from sentence_transformers import SentenceTransformer
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv('HUGGINGFACE_TOKEN')
@@ -19,6 +20,20 @@ class SBERTEmbeddingFunction:
     def embed_query(self, text):
         """Gera embeddings para uma única consulta."""
         return self.model.encode([text], convert_to_numpy=True).tolist()[0]
+
+
+class GoogleEmbeddingFunction:
+    """Classe para adaptar GoogleGenerativeAIEmbeddings ao formato esperado pelo LangChain."""
+    def __init__(self, model_name="models/text-embedding-004"):
+        self.model = GoogleGenerativeAIEmbeddings(model=model_name)
+
+    def embed_documents(self, texts):
+        """Gera embeddings para múltiplos documentos."""
+        return [self.model.embed_query(text) for text in texts]
+
+    def embed_query(self, text):
+        """Gera embeddings para uma única consulta."""
+        return self.model.embed_query(text)
     
     
 class VectorIndex():
@@ -31,7 +46,7 @@ class VectorIndex():
         self.PERSIST_DIRECTORY=persist_directory
         self.CHUNK_SIZE=chuk_size 
         self.CHUNK_OVERLAP=chunk_overlap
-        self.embedding_function = SBERTEmbeddingFunction(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        self.embedding_function = GoogleEmbeddingFunction()
         self.vectorstore = Chroma(
             embedding_function=self.embedding_function,
             persist_directory=self.PERSIST_DIRECTORY
@@ -63,7 +78,6 @@ class VectorIndex():
         )
 
         all_splits = text_splitter.split_documents(docs)
-        print(all_splits)
         print('[INFO] - Splits de documento gerados')
 
         vectorstore = Chroma.from_documents(
