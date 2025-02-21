@@ -1,7 +1,7 @@
 
 # Estrutura do Projeto: LLM-RAG-FINANCE-NEWS
 
-Este projeto parece ser um sistema baseado em RAG (Retrieval-Augmented Generation) para notícias financeiras. A estrutura está organizada da seguinte forma:
+Este projeto é um sistema baseado em RAG (Retrieval-Augmented Generation) para notícias financeiras. A estrutura está organizada da seguinte forma:
 
 ```plaintext
 LLM-RAG-FINANCE-NEWS/
@@ -16,8 +16,8 @@ LLM-RAG-FINANCE-NEWS/
 │   │   │── inference_router.py  # Rota para chamadas de inferência do modelo
 │   │   │── ingestion_router.py  # Rota para ingestão de dados no sistema
 │   │   │── retrieval_router.py  # Rota para recuperação de informações
-│   │── utils/          # Funções utilitárias e auxiliares
-│   │── main.py       # Ponto de entrada principal da aplicação
+│   │── utils/            # Funções utilitárias e auxiliares
+|── main.py               # Ponto de entrada principal da aplicação
 │── .env                  # Variáveis de ambiente
 │── .gitignore            # Arquivo para ignorar arquivos no Git
 │── mindmap.excalidraw    # Mapa mental do projeto
@@ -109,14 +109,14 @@ print(data)
 Para iniciar o servidor Uvicorn, você precisa rodar o seguinte comando no terminal:
 
 ```sh
-uvicorn src.main:app --reload
+sudo uvicorn main:app --reload --host 0.0.0.0 --port 80
 ```
 
 ## Executando o Servidor no Python Shell
 
 Rode na raiz do projeto: 
 ```
-python -m src.main
+python -m main
 ```
 
 ## Mindmap

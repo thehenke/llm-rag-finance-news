@@ -1,7 +1,7 @@
 import json
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field, ValidationError
-from pipelines.inference import RAGInference
+from src.pipelines.inference import RAGInference
 
 router = APIRouter()
 rag = RAGInference()

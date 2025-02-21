@@ -3,8 +3,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
-from engines.embeddings import VectorIndex
-from prompt.rag import template
+from src.engines.embeddings import VectorIndex
+from src.prompt.rag import template
 
 load_dotenv()
 

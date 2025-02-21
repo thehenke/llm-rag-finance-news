@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from pipelines.ingestion import DataIngestion
+from src.pipelines.ingestion import DataIngestion
 
 router = APIRouter()
 

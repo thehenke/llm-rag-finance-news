@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import inference_router, ingestion_router
+from src.routes import inference_router, ingestion_router
 
 app = FastAPI()
 

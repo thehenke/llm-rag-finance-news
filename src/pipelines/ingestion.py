@@ -3,8 +3,8 @@ import requests
 from datetime import datetime
 from dotenv import load_dotenv
 from langchain.docstore.document import Document
-from engines.sqlite import SQLite
-from engines.embeddings import VectorIndex
+from src.engines.sqlite import SQLite
+from src.engines.embeddings import VectorIndex
 
 load_dotenv()
 API_KEY = os.getenv('API_NEWS_KEY')
