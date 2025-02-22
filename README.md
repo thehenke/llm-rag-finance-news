@@ -119,6 +119,13 @@ Rode na raiz do projeto:
 python -m main
 ```
 
+
+## Executando Docker 
+
+```
+docker-compose up --build
+```
+
 ## Mindmap
 
 ![Mindmap](mindmap.png)

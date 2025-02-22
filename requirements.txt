@@ -8,3 +8,4 @@ sentence-transformers==3.4.1
 langchain-google-genai==2.0.9
 fastapi==0.115.8
 pydantic==2.10.6
+SQLAlchemy==2.0.38

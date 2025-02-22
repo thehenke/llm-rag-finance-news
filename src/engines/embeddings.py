@@ -25,7 +25,7 @@ class SBERTEmbeddingFunction:
 class GoogleEmbeddingFunction:
     """Classe para adaptar GoogleGenerativeAIEmbeddings ao formato esperado pelo LangChain."""
     def __init__(self, model_name="models/text-embedding-004"):
-        self.model = GoogleGenerativeAIEmbeddings(model=model_name)
+        self.model = GoogleGenerativeAIEmbeddings(model=model_name, region='us-central1')
 
     def embed_documents(self, texts):
         """Gera embeddings para múltiplos documentos."""
@@ -41,13 +41,15 @@ class VectorIndex():
             self, 
             chuk_size=1000, 
             chunk_overlap=50, 
-            persist_directory='database/store'
+            persist_directory='database/store',
+            collection_name='articles'
         ):
         self.PERSIST_DIRECTORY=persist_directory
         self.CHUNK_SIZE=chuk_size 
         self.CHUNK_OVERLAP=chunk_overlap
         self.embedding_function = GoogleEmbeddingFunction()
         self.vectorstore = Chroma(
+            collection_name=collection_name,
             embedding_function=self.embedding_function,
             persist_directory=self.PERSIST_DIRECTORY
         )
