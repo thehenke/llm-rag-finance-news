@@ -3,7 +3,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
-from src.engines.embeddings import VectorIndex
+from src.engines.embeddings import VectorIndex, GoogleEmbeddingFunction
 from src.prompt.rag import template
 
 load_dotenv()
@@ -28,7 +28,7 @@ class RAGInference():
         retrieved_docs = self.vectorstore.retrieve_documents(query)
         
         formatted_docs = self.__format_docs(retrieved_docs)
-        # print(formatted_docs)
+        print(formatted_docs)
         context = {"context": formatted_docs, "question": query}
         
         rag_chain = (
@@ -42,5 +42,8 @@ class RAGInference():
         response = rag_chain.invoke(context)
         return response
 
-# rag = RAGInference().run(query='Tem algo falando sobre Central bank digital currency ou CBDC ? Cite quem foram os autores e as noticias')
-# print(rag)
+# query = 'Fale sobre a petrobras e mineração de bitcoins'
+# embedder = GoogleEmbeddingFunction()
+# query_embedded = embedder.embed_query(query)
+# rag = RAGInference().run(query=query)
+# # print(rag)

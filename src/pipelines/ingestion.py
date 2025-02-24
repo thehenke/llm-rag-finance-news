@@ -63,10 +63,10 @@ class DataIngestion():
             row_text = " ".join([f"{key}: {value}" for key, value in row.items()])
             # print(len(row_text))
             documents.append(Document(page_content=row_text))
-            
+        print(documents)    
         print(f"[INFO] - {len(documents)} recuperados")
         vs = VectorIndex()
         vs.store(documents)
 
 
-# DataIngestion().run(get_data_from_api=True)
+# DataIngestion().run(get_data_from_api=False)

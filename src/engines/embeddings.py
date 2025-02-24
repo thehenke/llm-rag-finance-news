@@ -41,21 +41,21 @@ class VectorIndex():
             self, 
             chuk_size=1000, 
             chunk_overlap=50, 
-            persist_directory='database/store',
+            persist_directory='src/database/store',
             collection_name='articles'
         ):
         self.PERSIST_DIRECTORY=persist_directory
         self.CHUNK_SIZE=chuk_size 
         self.CHUNK_OVERLAP=chunk_overlap
         self.embedding_function = GoogleEmbeddingFunction()
-        self.vectorstore = Chroma(
+        self.chroma = Chroma(
             collection_name=collection_name,
             embedding_function=self.embedding_function,
             persist_directory=self.PERSIST_DIRECTORY
         )
         self.__retriever = self.__set_retriever()
 
-    def retrieve_documents(self, query, k=6, score_threshold=0.5):
+    def retrieve_documents(self, query):
         print(f'[INFO] - Buscando documentos para a query: "{query}"')
         results = self.__retriever.invoke(query)
         
@@ -72,11 +72,11 @@ class VectorIndex():
         return self.vectorstore
     
     def __set_retriever(self):
-        retriever = self.vectorstore.as_retriever(
+        retriever = self.chroma.as_retriever(
             search_type="similarity_score_threshold",
             search_kwargs={
-                "k": 6,
-                "score_threshold": 0.5,
+                "k": 8,
+                "score_threshold": 0.3,
             }
         )
 
@@ -95,10 +95,8 @@ class VectorIndex():
         all_splits = text_splitter.split_documents(docs)
         print('[INFO] - Splits de documento gerados')
 
-        vectorstore = Chroma.from_documents(
-            documents=all_splits,
-            embedding=self.embedding_function,
-            persist_directory=self.PERSIST_DIRECTORY
+        vectorstore = self.chroma.add_documents(
+            documents=all_splits
         )
 
         print(f'[INFO] - Concluído storage no vector store {vectorstore}')
