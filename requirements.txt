@@ -9,5 +9,4 @@ langchain-google-genai==2.0.9
 fastapi==0.115.8
 pydantic==2.10.6
 SQLAlchemy==2.0.38
-nltk==3.9.1
 rank-bm25==0.2.2
