@@ -5,6 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
 from src.engines.embeddings import VectorIndex, GoogleEmbeddingFunction
 from src.prompt.rag import template
+from src.engines.retriever import  HybridRetriever, SelfRetriver
 
 load_dotenv()
 
@@ -20,15 +21,17 @@ class RAGInference():
             timeout=None,
             max_retries=2,
         )
+        self.retriever = HybridRetriever()
 
     def __format_docs(self, docs):
         return "\n\n".join(doc['page_content'] for doc in docs)
 
     def run(self, query=None):
-        retrieved_docs = self.vectorstore.retrieve_documents(query)
+        docs = self.retriever.retrieve(query=query)
         
-        formatted_docs = self.__format_docs(retrieved_docs)
+        formatted_docs = self.__format_docs(docs)
         print(formatted_docs)
+        
         context = {"context": formatted_docs, "question": query}
         
         rag_chain = (
@@ -42,8 +45,8 @@ class RAGInference():
         response = rag_chain.invoke(context)
         return response
 
-# query = 'Fale sobre a petrobras e mineração de bitcoins'
+query = 'Fale sobre a petrobras e mineração de bitcoins'
 # embedder = GoogleEmbeddingFunction()
 # query_embedded = embedder.embed_query(query)
-# rag = RAGInference().run(query=query)
-# # print(rag)
+rag = RAGInference().run(query=query)
+print(rag)
