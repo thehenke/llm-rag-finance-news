@@ -4,6 +4,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from sentence_transformers import SentenceTransformer
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from typing import List
+from langchain.docstore.document import Document
 
 load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv('HUGGINGFACE_TOKEN')
@@ -55,7 +57,7 @@ class VectorIndex():
         )
         self.__retriever = self.__set_retriever()
 
-    def retrieve_documents(self, query):
+    def retrieve_documents(self, query) -> List:
         print(f'[INFO] - Buscando documentos para a query: "{query}"')
         results = self.__retriever.invoke(query)
         
@@ -75,34 +77,20 @@ class VectorIndex():
         retriever = self.chroma.as_retriever(
             search_type="similarity_score_threshold",
             search_kwargs={
-                "k": 8,
+                "k": 10,
                 "score_threshold": 0.3,
             }
         )
 
         return retriever
     
-    def store(self, docs):
-
-        print('[INFO] - Iniciando storage no vector store')
-
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=self.CHUNK_SIZE, 
-            chunk_overlap=self.CHUNK_OVERLAP, 
-            add_start_index=True
-        )
-
-        all_splits = text_splitter.split_documents(docs)
-        print('[INFO] - Splits de documento gerados')
+    def store(self, docs:List[Document]):
 
         vectorstore = self.chroma.add_documents(
-            documents=all_splits
+            documents=docs
         )
 
         print(f'[INFO] - Concluído storage no vector store {vectorstore}')
-
-    def __multiquery_retrieval_augmented(self):
-        pass
 
 # teste = VectorIndex().retrieve_documents(query="o que fazer com as noticias de bitcoin")
 # print(teste)

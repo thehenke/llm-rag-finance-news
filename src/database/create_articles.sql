@@ -1,4 +1,5 @@
 CREATE TABLE articles (
+    id           STRING,
     title        STRING,
     author       STRING,
     source       STRING,

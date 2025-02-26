@@ -15,7 +15,7 @@ class SQLite:
     def insert_rows(self, rows):
         try:
             self.__create_table()
-            self.con.executemany("INSERT INTO articles(title, author, source, description, content, url, published_at, request_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", rows)
+            self.con.executemany("INSERT INTO articles(id, title, author, source, description, content, url, published_at, request_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", rows)
             self.con.commit()
             print(f'[INFO] - {len(rows)} linhas inseridas na tabela!')
         except Exception as error:

@@ -1,5 +1,6 @@
 import os 
 import requests
+import random 
 from datetime import datetime
 from dotenv import load_dotenv
 from langchain.docstore.document import Document
@@ -28,6 +29,7 @@ class DataIngestion():
 
         data = [
             (
+                str(random.randint(10**7, 10**8 - 1)),
                 str(article["title"]),
                 str(article["author"]),
                 str(article["source"]),
@@ -47,26 +49,30 @@ class DataIngestion():
         rows = self.db.query("SELECT * FROM articles")
 
         data = [{
-            "title":        row[0],
-            "author":       row[1], 
-            "source":       row[2], 
-            "description":  row[3], 
-            "content":      row[4], 
-            "url":          row[5], 
-            "published_at": row[6], 
-            "requested_at": row[7] 
+            "id":           row[0],
+            "title":        row[1],
+            "author":       row[2], 
+            "source":       row[3], 
+            "description":  row[4], 
+            "content":      row[5], 
+            "url":          row[6], 
+            "published_at": row[7], 
+            "requested_at": row[8] 
         } for row in rows]
         
         documents = []
         for row in data:
+            
             # Criar uma string no formato "coluna: valor"
             row_text = " ".join([f"{key}: {value}" for key, value in row.items()])
             # print(len(row_text))
-            documents.append(Document(page_content=row_text))
-        print(documents)    
+            documents.append(Document(page_content=row_text, id=row['id']))
+            # break
+
+        # print(documents)    
         print(f"[INFO] - {len(documents)} recuperados")
         vs = VectorIndex()
         vs.store(documents)
 
 
-# DataIngestion().run(get_data_from_api=False)
+DataIngestion().run(get_data_from_api=True)
