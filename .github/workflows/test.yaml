@@ -1,0 +1,31 @@
+name: Run Python Tests
+
+on:
+  push:
+    branches:
+      - main  # Ou a branch em que você deseja rodar os testes
+  pull_request:
+    branches:
+      - main  # Quando um PR for aberto para a branch principal
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'  # Substitua pela versão do Python necessária
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  
+
+    - name: Run tests with pytest
+      run: |
+        pytest 
