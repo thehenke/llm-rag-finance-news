@@ -6,7 +6,7 @@ Este projeto é um sistema baseado em RAG (Retrieval-Augmented Generation) para 
 
 ## Mindmap
 
-![Mindmap](mindmap.png)
+![Mindmap](mindmap2.png)
 
 ## Estrutura
 A estrutura está organizada da seguinte forma:
