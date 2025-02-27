@@ -27,5 +27,8 @@ jobs:
         pip install -r requirements.txt  
 
     - name: Run tests with pytest
+      env:
+        API_NEWS_KEY: ${{ vars.API_NEWS_KEY }}  # Acessando o secret
+        GOOGLE_API_KEY: ${{ vars.GOOGLE_API_KEY }}
       run: |
         pytest 
