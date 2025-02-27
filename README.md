@@ -1,7 +1,15 @@
 
 # Estrutura do Projeto: LLM-RAG-FINANCE-NEWS
 
-Este projeto é um sistema baseado em RAG (Retrieval-Augmented Generation) para notícias financeiras. A estrutura está organizada da seguinte forma:
+Este projeto é um sistema baseado em RAG (Retrieval-Augmented Generation) para notícias financeiras. 
+
+
+## Mindmap
+
+![Mindmap](mindmap.png)
+
+## Estrutura
+A estrutura está organizada da seguinte forma:
 
 ```plaintext
 LLM-RAG-FINANCE-NEWS/
@@ -125,7 +133,6 @@ python -m main
 ```
 docker-compose up --build
 ```
-
-## Mindmap
-
-![Mindmap](mindmap.png)
+## Endpoints
+### todo
+### todo
