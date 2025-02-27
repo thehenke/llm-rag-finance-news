@@ -32,7 +32,7 @@ async def inference(request: Request):
         
         result = await rag.run(query=query)
 
-        return {"result": result}
+        return result
     
     except json.JSONDecodeError:
         raise HTTPException(status_code=400, detail={"error": "Invalid JSON format", "hint": "Ensure the request body is a valid JSON."})
