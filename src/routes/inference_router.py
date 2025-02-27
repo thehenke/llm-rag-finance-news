@@ -30,7 +30,7 @@ async def inference(request: Request):
                 detail={"error": "'query' string parameter is required in JSON"}
             )
         
-        result = rag.run(query=query)
+        result = await rag.run(query=query)
 
         return {"result": result}
     
