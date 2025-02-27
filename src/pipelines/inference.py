@@ -1,10 +1,9 @@
+from typing import Dict
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
-import asyncio
-
 from src.engines.embeddings import VectorIndex, GoogleEmbeddingFunction
 from src.prompt.rag import template
 from src.engines.retriever import  HybridRetriever, SelfRetriver
@@ -21,7 +20,6 @@ class RAGInference():
         """
         self.template = template()
         self.prompt = PromptTemplate(template=self.template, input_variables=["context", "question"])
-        self.vectorstore = VectorIndex()
         self.llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash",
             temperature=1.0,
@@ -43,7 +41,7 @@ class RAGInference():
         """
         return "\n\n".join(doc['page_content'] for doc in docs)
 
-    async def run(self, query=None):
+    async def run(self, query=None) -> Dict:
         """
         Executa o fluxo completo de recuperação e geração de resposta para uma consulta dada.
 
@@ -68,5 +66,5 @@ class RAGInference():
         )
         
         response = rag_chain.invoke(context)
-        return response
+        return {"response": response, "documents": docs}
 
